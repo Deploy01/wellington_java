@@ -5,11 +5,11 @@ import exceptions.ExceptionNegativoZero;
 import exceptions.ExceptionSaque;
 
 public class ContaCorrente extends Conta{
+	private double limiteEspecial;
 	public ContaCorrente(double saldo, double limiteEspecial) {
 		super(saldo);
 		this.limiteEspecial = limiteEspecial;
 	}
-	private double limiteEspecial;
 
 	@Override
 	public void sacar(double valor) throws ExceptionLimite, ExceptionNegativoZero, ExceptionSaque {
