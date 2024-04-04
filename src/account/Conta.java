@@ -1,12 +1,11 @@
 package account;
 
+import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
 import exceptions.ExceptionSaque;
 
 public class Conta {
 	private double saldo;
-	
-	
 
 	public Conta(double saldo) {
 		super();
@@ -21,9 +20,9 @@ public class Conta {
 		this.saldo += valor;
 	}
 	
-	public void sacar(double valor) throws ExceptionSaque, ExceptionNegativoZero {
+	public void sacar(double valor) throws ExceptionSaque, ExceptionNegativoZero, ExceptionLimite {
 		
-		if(valor < this.saldo) {
+		if(valor > this.saldo) {
 			throw new ExceptionSaque();
 		} else if (valor <= 0) {
 			throw new ExceptionNegativoZero();
@@ -41,4 +40,14 @@ public class Conta {
 			this.saldo += calculo;
 		}
 	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+	public double getSaldo() {
+		return saldo;
+	}
+
+
+
 }
