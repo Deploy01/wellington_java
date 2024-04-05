@@ -2,6 +2,8 @@ package account;
 
 import exceptions.ExceptionNegativoZero;
 
+import javax.swing.*;
+
 public class ContaPoupanca extends Conta{
 
 
@@ -16,11 +18,15 @@ public class ContaPoupanca extends Conta{
 		if (reajuste <= 0) {
 			throw new ExceptionNegativoZero();
 		}
+		this.reajusteMensal = reajuste;
 		double novoSaldo = getSaldo() + (getSaldo() * (reajuste/100));
 		setSaldo(novoSaldo);
 	}
 	@Override
 	public String toString() {
-		return "Conta Poupança: " + "Saldo: " + getSaldo() + " Reajuste mensal: " + reajusteMensal;
+		JOptionPane.showMessageDialog(null, "Saldo: " + getSaldo() + " Reajuste mensal: " + reajusteMensal);
+		return "Saldo: " + getSaldo() + " Reajuste mensal: " + reajusteMensal;
 	}
+
+
 }

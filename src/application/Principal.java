@@ -9,7 +9,7 @@ public class Principal {
 		try {
 			menu.executar();
 		} catch (Exception e) {
-			System.out.println("Maluco bugou o código aqui");
+			System.out.println("Maluco bugou o código aqui no principal");
 		}
 	}
 

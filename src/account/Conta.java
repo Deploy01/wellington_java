@@ -4,6 +4,8 @@ import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
 import exceptions.ExceptionSaque;
 
+import javax.swing.*;
+
 public class Conta {
 	private double saldo;
 
@@ -13,6 +15,7 @@ public class Conta {
 	}
 
 	public void depositar(double valor) throws ExceptionNegativoZero {
+
 		if (valor <= 0) {
 			throw new ExceptionNegativoZero();
 		}
@@ -33,11 +36,9 @@ public class Conta {
 	}
 	
 	public void atualizarSaldo() {
-		double calculo = this.saldo;
-		
-		if(calculo < 0) {
-			calculo *= 0.08;
-			this.saldo += calculo;
+		if(saldo < 0) {
+			double calculo = Math.abs(saldo) * 0.08;
+			saldo += calculo;
 		}
 	}
 

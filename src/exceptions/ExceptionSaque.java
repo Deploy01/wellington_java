@@ -2,6 +2,6 @@ package exceptions;
 
 public class ExceptionSaque extends Exception{
 	public String toString() {
-		return "O valor de saque não pode ser menor maior que o saldo. Caloteiro!";
+		return "O valor de saque não pode ser maior que o saldo. Caloteiro!";
 	}
 }

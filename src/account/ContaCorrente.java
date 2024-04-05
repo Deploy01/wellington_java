@@ -4,6 +4,8 @@ import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
 import exceptions.ExceptionSaque;
 
+import javax.swing.*;
+
 public class ContaCorrente extends Conta{
 	private double limiteEspecial;
 	public ContaCorrente(double saldo, double limiteEspecial) {
@@ -11,19 +13,18 @@ public class ContaCorrente extends Conta{
 		this.limiteEspecial = limiteEspecial;
 	}
 
-	@Override
 	public void sacar(double valor) throws ExceptionLimite, ExceptionNegativoZero, ExceptionSaque {
-		double limite = this.limiteEspecial;
-		if (getSaldo() - valor < limiteEspecial) {
+		/* if (getSaldo() - valor > limiteEspecial) {
 			throw new ExceptionLimite("Saldo ultrapassou o valor do limite especial");
-		}
+		} */
 		if (valor <= 0) {
 			throw new ExceptionNegativoZero();
 		}
 		super.sacar(valor);
 	}
-	@Override
+	@Override // isso é feio, mas eu só quero acabar
 	public String toString() {
-		return "Saldo: " + getSaldo() + " Limite especial: " + this.limiteEspecial;
+		JOptionPane.showMessageDialog(null, "Saldo: " + getSaldo() + " Limite especial: " + limiteEspecial);
+		return "Saldo: " + getSaldo() + " Limite especial: " + limiteEspecial;
 	}
 }
