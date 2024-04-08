@@ -96,33 +96,31 @@ public class MenuConta extends Menu {
                 break;
             }
             case 2: {
-                System.out.println("3");
-                if (contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
-                	throw new ExceptionLimite();
-                } 
-                
+
                 double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque"));
                 
                 if (saque <= 0) {
                     throw new ExceptionNegativoZero();
                 }
                 
-                if (contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
+                if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
                 	throw new ExceptionLimite();
                 } else {
-                	double saldoAntigo = contaCC.getSaldo();
                 	contaCC.sacar(saque);
                     System.out.println("primeiro " + contaCC.getSaldo());
                     System.out.println(contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
                     System.out.println(contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
 
-                    if (contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
+                    if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
+                    	contaCC.setSaldo(-1000); // feio, mas funciona.
+                    	System.out.println("segundo THROW" + contaCC.getSaldo());
                     	throw new ExceptionLimite();
                     } else {
-                    	contaCC.setSaldo(saldoAntigo);
+                    	contaCC.setSaldo(contaCC.getSaldo());
                     }
                     operarContaCC();
 
+                    System.out.println("segundo " + contaCC.getSaldo());
                     break;
                 }
                 

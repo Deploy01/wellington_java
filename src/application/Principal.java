@@ -13,13 +13,13 @@ public class Principal {
 			try {
 				menu.executar();
 			} catch (ExceptionNegativoZero e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (ExceptionSaque e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			} catch (ExceptionLimite e) {
-				// TODO Auto-generated catch block
+
 				e.printStackTrace();
 			}
 
