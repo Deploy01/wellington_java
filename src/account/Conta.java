@@ -30,7 +30,7 @@ public class Conta {
 		} else if (valor <= 0) {
 			throw new ExceptionNegativoZero();
 		} else {
-			saldo -= valor;
+			this.saldo -= valor;
 		}
 		
 	}
