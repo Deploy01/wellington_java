@@ -2,6 +2,7 @@ package menu;
 
 import account.ContaCorrente;
 import account.ContaPoupanca;
+import account.Conta;
 import exceptions.*;
 
 import javax.swing.*;
@@ -96,15 +97,37 @@ public class MenuConta extends Menu {
             }
             case 2: {
                 System.out.println("3");
-
+                if (contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
+                	throw new ExceptionLimite();
+                } 
+                
                 double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque"));
+                
                 if (saque <= 0) {
                     throw new ExceptionNegativoZero();
                 }
-                contaCC.sacar(saque);
+                
+                if (contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
+                	throw new ExceptionLimite();
+                } else {
+                	double saldoAntigo = contaCC.getSaldo();
+                	contaCC.sacar(saque);
+                    System.out.println("primeiro " + contaCC.getSaldo());
+                    System.out.println(contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
+                    System.out.println(contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
 
-                operarContaCC();
-                break;
+                    if (contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
+                    	throw new ExceptionLimite();
+                    } else {
+                    	contaCC.setSaldo(saldoAntigo);
+                    }
+                    operarContaCC();
+
+                    break;
+                }
+                
+
+                
             }
             case 3: {
                 executarMenu();
