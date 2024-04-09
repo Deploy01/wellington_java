@@ -16,7 +16,7 @@ public class MenuConta extends Menu {
         super(0, "Escolha uma Opção");
         contaCC = new ContaCorrente(500, 1000);
 
-        contaCP = new ContaPoupanca(5000, 1);
+        contaCP = new ContaPoupanca(5000, 0.01); // 0.01 = 1% // 1 = 100%
     }
 
     protected void executarMenu() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite {
@@ -86,7 +86,7 @@ public class MenuConta extends Menu {
             }
             case 1: {
                 System.out.println("2");
-                double deposito = Double.parseDouble(JOptionPane.showInputDialog("Valor de depósito"));
+                double deposito = Double.parseDouble(JOptionPane.showInputDialog("Valor de depósito: "));
                 if (deposito <= 0) {
                     throw new ExceptionNegativoZero();
                 }
@@ -96,36 +96,34 @@ public class MenuConta extends Menu {
                 break;
             }
             case 2: {
+//socorro
+                double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque: "));
 
-                double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque"));
-                
                 if (saque <= 0) {
                     throw new ExceptionNegativoZero();
                 }
-                
-                if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
-                	throw new ExceptionLimite();
-                } else {
-                	contaCC.sacar(saque);
-                    System.out.println("primeiro " + contaCC.getSaldo());
-                    System.out.println(contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
-                    System.out.println(contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
-
-                    if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2) == true) {
-                    	contaCC.setSaldo(-1000); // feio, mas funciona.
-                    	System.out.println("segundo THROW" + contaCC.getSaldo());
-                    	throw new ExceptionLimite();
-                    } else {
-                    	contaCC.setSaldo(contaCC.getSaldo());
-                    }
-                    operarContaCC();
-
-                    System.out.println("segundo " + contaCC.getSaldo());
-                    break;
+                // feio, mas funciona.
+                //para amanhã: fazer isso funcionar. Meio caminho andado.
+                double checkSaque = contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2);
+                if (contaCC.getSaldo() < checkSaque) {
+                    contaCC.setSaldo( - 1000);
+                    System.out.println("Saldo THROW" + contaCC.getSaldo());
+                    System.out.println("segundo saldo THROW" + checkSaque);
+                    throw new ExceptionLimite();
                 }
-                
 
-                
+
+                contaCC.sacar(saque);
+                System.out.println("segundo " + contaCC.getSaldo());
+              /*  System.out.println("primeiro " + contaCC.getSaldo());
+                System.out.println(contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
+                System.out.println(contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)); */
+
+
+                operarContaCC();
+
+                break;
+//mds kkkkkkkkkkk
             }
             case 3: {
                 executarMenu();
@@ -193,18 +191,15 @@ public class MenuConta extends Menu {
                 contaCP.atualizarSaldo(reajuste);
                 operarContaCP();
                 break;
-
             }
             case 4: {
                 executarMenu();
                 break;
-
             }
             default: {
                 JOptionPane.showMessageDialog(null,"Opção inválida");
             }
         }
-        System.out.println("Saindo");
     }
 
 

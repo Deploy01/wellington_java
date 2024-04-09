@@ -5,8 +5,6 @@ import exceptions.ExceptionNegativoZero;
 import javax.swing.*;
 
 public class ContaPoupanca extends Conta{
-
-
 	private double reajusteMensal;
 
 	public ContaPoupanca(double saldo, double reajusteMensal) {
@@ -14,13 +12,13 @@ public class ContaPoupanca extends Conta{
 		this.reajusteMensal = reajusteMensal;
 	}
 
-	public void atualizarSaldo(double reajuste) throws ExceptionNegativoZero {
+	public void atualizarSaldo(double reajuste) throws ExceptionNegativoZero { // fiquei confuso sobre como funciona isso. Mas eu acho que é assim.
 		if (reajuste <= 0) {
 			throw new ExceptionNegativoZero();
 		}
+		setSaldo(getSaldo() + getSaldo() * reajuste); // teoricamente, tá funcionando. Na pratica... Eu não sei. Vejam se eu errei pfv
 		this.reajusteMensal = reajuste;
-		double novoSaldo = getSaldo() + (getSaldo() * (reajuste/100));
-		setSaldo(novoSaldo);
+//ep2 feio, mas funciona
 	}
 	@Override
 	public String toString() {
