@@ -3,6 +3,7 @@ package account;
 import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
 import exceptions.ExceptionSaque;
+import menu.MenuConta;
 
 import javax.swing.*;
 
@@ -34,17 +35,16 @@ public abstract class Conta {
 
 	}
 	public void atualizarSaldo() { // https://prnt.sc/LdMBu3J0I7FK
-		this.saldo = saldo;
-
 		if (this.saldo < 0) {
-			double valorExcedente = Math.abs(saldo) * 0.08; // 7.36 se sacar 600?
-			saldo = saldo + valorExcedente;
+			double valorExcedente = Math.abs(this.saldo) * 0.08;
+			this.saldo -= valorExcedente;
 		}
 	}
 
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
-		atualizarSaldo(); // funcionou? ta executando duas vezes
+		atualizarSaldo(); // funcionou? 
+		
 
 	}
 	public double getSaldo() {

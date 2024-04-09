@@ -17,16 +17,16 @@ public class ContaCorrente extends Conta{
 	@Override
 	public void sacar(double valor) throws ExceptionLimite, ExceptionNegativoZero, ExceptionSaque {
 		
-		setSaldo(getSaldo() - valor);
+		
 		if (valor <= 0) {
 			throw new ExceptionNegativoZero();
 		}
+		setSaldo(getSaldo() - valor);
 	}
 	@Override
 	public String toString() {
 		JOptionPane.showMessageDialog(null, "Saldo: " + getSaldo() + " Limite especial: " + limiteEspecial);
-		return "Saldo: " + getSaldo() + " Limite especial: " + limiteEspecial;
-		
+		return "Saldo: " + getSaldo() + "Limite especial: " + limiteEspecial;
 	}
 
 	public double getLimiteEspecial() {

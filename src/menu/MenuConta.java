@@ -97,34 +97,32 @@ public class MenuConta extends Menu {
             }
             case 2: {
 //socorro
-                double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque: "));
+            	double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque: "));
 
                 if (saque <= 0) {
                     throw new ExceptionNegativoZero();
                 }
-                // feio, mas funciona.
-                //para amanhÃ£: fazer isso funcionar. Meio caminho andado.
-                double checkSaque = contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2);
-                if (contaCC.getSaldo() < checkSaque) {
-                    contaCC.setSaldo( - 1000);
-                    System.out.println("Saldo THROW" + contaCC.getSaldo());
-                    System.out.println("segundo saldo THROW" + checkSaque);
-                    throw new ExceptionLimite();
+                if (contaCC.getSaldo() < 0) {
+                	throw new ExceptionNegativoZero();
                 }
 
+                if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)) {
+                	throw new ExceptionLimite();
+                } else {
+                	contaCC.sacar(saque);
+                	// feio, mas funciona. ou não;
+                    if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)) {
+                    	contaCC.setSaldo(-1000); 
+                    	System.out.println("segundo THROW" + contaCC.getSaldo());
+                    	throw new ExceptionLimite();
+                    }
+                    operarContaCC();
 
-                contaCC.sacar(saque);
-                System.out.println("segundo " + contaCC.getSaldo());
-              /*  System.out.println("primeiro " + contaCC.getSaldo());
-                System.out.println(contaCC.getSaldo() <= contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2));
-                System.out.println(contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)); */
-
-
-                operarContaCC();
-
-                break;
-//mds kkkkkkkkkkk
+                    System.out.println("segundo " + contaCC.getSaldo());
+                    break;
+                }
             }
+//mds kkkkkkkkkkk
             case 3: {
                 executarMenu();
                 break;
