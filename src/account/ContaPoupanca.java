@@ -16,7 +16,7 @@ public class ContaPoupanca extends Conta{
 		if (reajuste <= 0) {
 			throw new ExceptionNegativoZero();
 		}
-		setSaldo(getSaldo() + getSaldo() * reajuste); // teoricamente, tá funcionando. Na pratica... Eu não sei. Vejam se eu errei pfv
+		super.depositar(super.getSaldo() * reajuste); // teoricamente, tá funcionando. Na pratica... Eu não sei. Vejam se eu errei pfv
 		this.reajusteMensal = reajuste;
 //ep2 feio, mas funciona
 	}

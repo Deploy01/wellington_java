@@ -64,9 +64,8 @@ public class MenuConta extends Menu {
 
     private void operarContaCC() throws ExceptionSaque, ExceptionNegativoZero, ExceptionLimite {
         String[] options = {"1 - Consultar saldo", "2 - Depósito", "3 - Sacar", "0 - Voltar"};
-        int opcaoCC;
-
-        opcaoCC = JOptionPane.showOptionDialog(
+        
+        int opcaoCC = JOptionPane.showOptionDialog(
             null,
             "Escolha uma opção",
             "Titulo",
@@ -102,25 +101,14 @@ public class MenuConta extends Menu {
                 if (saque <= 0) {
                     throw new ExceptionNegativoZero();
                 }
-                if (contaCC.getSaldo() < 0) {
-                	throw new ExceptionNegativoZero();
-                }
 
                 if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)) {
-                	throw new ExceptionLimite();
+                    throw new ExceptionLimite();
                 } else {
-                	contaCC.sacar(saque);
-                	// feio, mas funciona. ou n�o;
-                    if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)) {
-                    	contaCC.setSaldo(-1000); 
-                    	System.out.println("segundo THROW" + contaCC.getSaldo());
-                    	throw new ExceptionLimite();
-                    }
-                    operarContaCC();
-
-                    System.out.println("segundo " + contaCC.getSaldo());
-                    break;
+                    contaCC.sacar(saque);
+                    operarContaCC(); // volta pra tela anteiror
                 }
+                break;
             }
 //mds kkkkkkkkkkk
             case 3: {
@@ -139,6 +127,7 @@ public class MenuConta extends Menu {
     private void operarContaCP() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite {
         String[] options = {"1 - Consultar saldo", "2 - Depósito", "3 - Sacar", "4 - Atualizar saldo", "0 - Voltar"};
         int opcaoCP;
+        
         opcaoCP = JOptionPane.showOptionDialog(
             null,
             "Escolha uma opção",

@@ -20,8 +20,11 @@ public class ContaCorrente extends Conta{
 		
 		if (valor <= 0) {
 			throw new ExceptionNegativoZero();
-		}
-		setSaldo(getSaldo() - valor);
+		} 
+	        double novoSaldo = getSaldo() - valor;
+	        setSaldo(novoSaldo);
+	        atualizarSaldo(valor); // não mexe!!!!!
+
 	}
 	@Override
 	public String toString() {

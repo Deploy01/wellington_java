@@ -34,18 +34,18 @@ public abstract class Conta {
 		}
 
 	}
-	public void atualizarSaldo() { // https://prnt.sc/LdMBu3J0I7FK
+	//XXX // passei mais tempo aqui do que no código todo. 
+	public void atualizarSaldo(double valorSaque) throws ExceptionNegativoZero { // https://prnt.sc/LdMBu3J0I7FK // não achei outro jeito de fazer isso sem parametro
 		if (this.saldo < 0) {
-			double valorExcedente = Math.abs(this.saldo) * 0.08;
-			this.saldo -= valorExcedente;
-		}
+	        double valorExcedente = Math.min(Math.abs(this.saldo), valorSaque) * 0.08; // NINGUEM MEXE MAIS !!!!!!!!!!!!!!!!!!
+	        this.saldo -= valorExcedente; // por que isso funcionou????? // algum outro lugar está errado. deveria ser -40. // funcionou.
+	    }
 	}
-
+	
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
-		atualizarSaldo(); // funcionou? 
 		
-
+		
 	}
 	public double getSaldo() {
 		return saldo;

@@ -1,5 +1,7 @@
 package application;
 
+import javax.swing.JOptionPane;
+
 import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
 import exceptions.ExceptionSaque;
@@ -10,18 +12,18 @@ public class Principal {
 	public static void main(String[] args) {
 		MenuConta menu = new MenuConta();
 
-			try {
-				menu.executar();
-			} catch (ExceptionNegativoZero e) {
+		try {
+			menu.executar();
+		} catch (ExceptionNegativoZero e) {
 
-				e.printStackTrace();
-			} catch (ExceptionSaque e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (ExceptionSaque e) {
 
-				e.printStackTrace();
-			} catch (ExceptionLimite e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		} catch (ExceptionLimite e) {
 
-				e.printStackTrace();
-			}
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 
 	}
 
