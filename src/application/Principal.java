@@ -1,8 +1,4 @@
-// Gabriel Lima
-// Giovanna Marquez
-// Pedro Roque
-// Patrick Trindade
-
+// Gabriel Lima Andrade
 
 package application;
 
