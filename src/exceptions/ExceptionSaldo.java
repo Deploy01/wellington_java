@@ -1,8 +1,10 @@
 package exceptions;
 
 public class ExceptionSaldo extends Exception{
-    public String toString() {
-        return "Saldo negativo";
+    private static final long serialVersionUID = 1L;
+
+    public ExceptionSaldo(String message) {
+        super(message);
     }
 
 }

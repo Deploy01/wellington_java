@@ -1,11 +1,9 @@
+
 package menu;
 
 import account.ContaCorrente;
 import account.ContaPoupanca;
-import account.Conta;
-import exceptions.*;
-
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class MenuConta extends Menu {
 
@@ -19,11 +17,10 @@ public class MenuConta extends Menu {
         contaCP = new ContaPoupanca(5000, 0.01); // 0.01 = 1% // 1 = 100%
     }
 
-    protected void executarMenu() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite {
+    protected void executarMenu(){
         String[] options = {"1 - Conta Corrente", "2 - Conta Poupança", "0 - Sair"};
-        int x;
 
-        x = JOptionPane.showOptionDialog(
+         int x = JOptionPane.showOptionDialog(
             null,
             "Escolha uma opção",
             "Titulo",
@@ -34,21 +31,16 @@ public class MenuConta extends Menu {
 
         setOpcao(x);
         avaliarOpcaoEscolhida();
-
-        System.out.println("Saindo");
-
     }
 
-    protected void avaliarOpcaoEscolhida() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite {
+    protected void avaliarOpcaoEscolhida(){
         switch (getOpcao()) {
             case 0: {
-                System.out.println("1");
 
                 operarContaCC();
                 break;
             }
             case 1: {
-                System.out.println("2");
 
                 operarContaCP();
                 break;
@@ -62,7 +54,7 @@ public class MenuConta extends Menu {
         }
     }
 
-    private void operarContaCC() throws ExceptionSaque, ExceptionNegativoZero, ExceptionLimite {
+    private void operarContaCC(){
         String[] options = {"1 - Consultar saldo", "2 - Depósito", "3 - Sacar", "0 - Voltar"};
         
         int opcaoCC = JOptionPane.showOptionDialog(
@@ -78,39 +70,46 @@ public class MenuConta extends Menu {
 
         switch (getOpcao()) {
             case 0: {
-                System.out.println("1 - teste");
-                contaCC.toString();
+                JOptionPane.showMessageDialog(null, contaCC.toString());
                 operarContaCC();
                 break;
             }
             case 1: {
-                System.out.println("2");
-                double deposito = Double.parseDouble(JOptionPane.showInputDialog("Valor de depósito: "));
-                if (deposito <= 0) {
-                    throw new ExceptionNegativoZero();
-                }
-                contaCC.depositar(deposito);
+	                String deposito = JOptionPane.showInputDialog("Valor de depósito: ");
+	                
+	                try {
 
-                operarContaCC();
+//tratamento
+	                	contaCC.depositar(Double.parseDouble(deposito));
+		                operarContaCC(); 
+
+	                } catch (NumberFormatException e ) {
+	            		JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número");
+	            		operarContaCC();
+	                } catch (NullPointerException e) {
+	            		operarContaCC();
+	                }
+
                 break;
             }
             case 2: {
 //socorro
-            	double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque: "));
 
-                if (saque <= 0) {
-                    throw new ExceptionNegativoZero();
-                }
+            	try {
+            		String saque = JOptionPane.showInputDialog("Valor de saque: ");
 
-                if (contaCC.getSaldo() < contaCC.getLimiteEspecial() - (contaCC.getLimiteEspecial() * 2)) {
-                    throw new ExceptionLimite();
-                } else {
-                    contaCC.sacar(saque);
+            		contaCC.sacar(Double.parseDouble(saque));
                     operarContaCC(); // volta pra tela anteiror
-                }
+
+	            	} catch (NumberFormatException e ) {
+	            		JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número");
+	            		operarContaCC();
+	            	} catch (NullPointerException e) {
+	            		operarContaCC();
+	                }
+
                 break;
             }
-//mds kkkkkkkkkkk
             case 3: {
                 executarMenu();
                 break;
@@ -118,17 +117,16 @@ public class MenuConta extends Menu {
             }
             default: {
                 JOptionPane.showMessageDialog(null,"Opção inválida");
+                break;
             }
         }
-
-        System.out.println("Saindo");
     }
 
-    private void operarContaCP() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite {
+    private void operarContaCP(){
         String[] options = {"1 - Consultar saldo", "2 - Depósito", "3 - Sacar", "4 - Atualizar saldo", "0 - Voltar"};
-        int opcaoCP;
         
-        opcaoCP = JOptionPane.showOptionDialog(
+        
+        int opcaoCP = JOptionPane.showOptionDialog(
             null,
             "Escolha uma opção",
             "Titulo",
@@ -141,42 +139,57 @@ public class MenuConta extends Menu {
 
         switch (getOpcao()) {
             case 0: {
-                System.out.println("1");
-                contaCP.toString();
+                JOptionPane.showMessageDialog(null, contaCP.toString());
                 operarContaCP();
                 break;
             }
             case 1: {
-                System.out.println("2");
-
-                double deposito = Double.parseDouble(JOptionPane.showInputDialog("Valor de depósito: "));
-                if (deposito <= 0) {
-                    throw new ExceptionNegativoZero();
+                String deposito = JOptionPane.showInputDialog("Valor de depósito: ");
+                
+                
+                try {
+                	contaCP.depositar(Double.parseDouble(deposito));
+                    operarContaCP();
+            	} catch (NumberFormatException e ) { 
+            		JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número");
+            		operarContaCP();
+            	} catch (NullPointerException e) {
+                	operarContaCP();
                 }
-                contaCP.depositar(deposito);
-                operarContaCP();
+
                 break;
             }
             case 2: {
-                System.out.println("3");
+                String saque = JOptionPane.showInputDialog("Valor de saque");
 
-                double saque = Double.parseDouble(JOptionPane.showInputDialog("Valor de saque"));
-                if (saque >= contaCP.getSaldo()) {
-                    throw new ExceptionSaque();
+                
+                try {
+                	contaCP.sacar(Double.parseDouble(saque));
+                    operarContaCP();
+
+                } catch (NumberFormatException e ) {
+            		JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número");
+            		operarContaCP();
+                } catch (NullPointerException e) {
+                	operarContaCP();
                 }
-                if (saque <= 0) {
-                    throw new ExceptionNegativoZero();
-                }
-                contaCP.sacar(saque);
-                operarContaCP();
+                
                 break;
             }
             case 3: {
-                System.out.println("4");
-                double reajuste = Double.parseDouble(JOptionPane.showInputDialog("Valor de reajuste: "));
+                String reajuste = JOptionPane.showInputDialog("Valor de reajuste: ");
 
-                contaCP.atualizarSaldo(reajuste);
-                operarContaCP();
+                try {
+	            	contaCP.atualizarSaldo(Double.parseDouble(reajuste));
+	                operarContaCP();
+
+                } catch (NumberFormatException e ) {
+            		JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número");
+            		operarContaCP();
+                }  catch (NullPointerException e) {
+                	operarContaCP();
+                }
+                
                 break;
             }
             case 4: {
@@ -188,8 +201,4 @@ public class MenuConta extends Menu {
             }
         }
     }
-
-
-
-
 }

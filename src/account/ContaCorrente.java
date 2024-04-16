@@ -2,10 +2,8 @@ package account;
 
 import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
-import exceptions.ExceptionSaque;
 
-
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class ContaCorrente extends Conta{
 	private double limiteEspecial;
@@ -15,21 +13,32 @@ public class ContaCorrente extends Conta{
 	}
 
 	@Override
-	public void sacar(double valor) throws ExceptionLimite, ExceptionNegativoZero, ExceptionSaque {
+	public void sacar(double valor){ // é aqui que faremos o tratamento
 		
-		
-		if (valor <= 0) {
-			throw new ExceptionNegativoZero();
-		} 
-	        double novoSaldo = getSaldo() - valor;
+		try {
+			double novoSaldo = getSaldo() - valor;
+
+			if (valor <= 0) {
+				throw new ExceptionNegativoZero("O valor não pode ser menor ou igual a zero");
+			} 
+
+	        if (novoSaldo < -getLimiteEspecial()) {
+	            throw new ExceptionLimite("Saldo insuficiente. Limite especial excedido");
+	        }
 	        setSaldo(novoSaldo);
 	        atualizarSaldo(valor); // não mexe!!!!!
+		} catch (ExceptionNegativoZero e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 
+		} catch (ExceptionLimite e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		}
+		
 	}
 	@Override
 	public String toString() {
-		JOptionPane.showMessageDialog(null, "Saldo: " + getSaldo() + " Limite especial: " + limiteEspecial);
-		return "Saldo: " + getSaldo() + "Limite especial: " + limiteEspecial;
+		return "Saldo: " + getSaldo() + "\nLimite especial: " + limiteEspecial;
 	}
 
 	public double getLimiteEspecial() {

@@ -1,11 +1,5 @@
 package menu;
 
-import account.ContaCorrente;
-import account.ContaPoupanca;
-import exceptions.ExceptionLimite;
-import exceptions.ExceptionNegativoZero;
-import exceptions.ExceptionSaque;
-
 public abstract class Menu {
     private int opcao;
     private String mensagemMenu;
@@ -15,13 +9,13 @@ public abstract class Menu {
         this.mensagemMenu = mensagemMenu;
     }
 
-    public void executar() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite {
+    public void executar(){
         executarMenu();
     }
 
-    protected abstract void executarMenu() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite;
+    protected abstract void executarMenu();
 
-    protected abstract void avaliarOpcaoEscolhida() throws ExceptionNegativoZero, ExceptionSaque, ExceptionLimite;
+    protected abstract void avaliarOpcaoEscolhida();
 
 
     public int getOpcao() {
@@ -31,4 +25,13 @@ public abstract class Menu {
     public void setOpcao(int opcao) {
         this.opcao = opcao;
     }
+
+	public String getMensagemMenu() {
+		return mensagemMenu;
+	}
+
+	public void setMensagemMenu(String mensagemMenu) {
+		this.mensagemMenu = mensagemMenu;
+	}
+    
 }

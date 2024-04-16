@@ -1,7 +1,10 @@
 package exceptions;
 
-public class ExceptionNegativoZero extends Exception{
-	public String toString() {
-		return("O valor n�o pode ser menor ou igual a zero");
-	}
+public class ExceptionNegativoZero extends Exception {
+    private static final long serialVersionUID = 1L;
+
+    public ExceptionNegativoZero(String message) {
+        super(message);
+    }
+
 }

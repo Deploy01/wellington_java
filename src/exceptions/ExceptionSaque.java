@@ -1,7 +1,10 @@
 package exceptions;
 
 public class ExceptionSaque extends Exception{
-	public String toString() {
-		return "O valor de saque não pode ser maior que o saldo. Caloteiro!";
-	}
+	private static final long serialVersionUID = 1L;
+	
+	public ExceptionSaque(String message) {
+        super(message);
+    }
+
 }

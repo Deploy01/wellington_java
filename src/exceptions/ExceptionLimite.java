@@ -1,7 +1,10 @@
 package exceptions;
 
 public class ExceptionLimite extends Exception{
-    public String toString() {
-        return ("Saldo ultrapassou o valor do limite especial");
-    }
+    private static final long serialVersionUID = 1L;
+
+    public ExceptionLimite(String message) {
+		super(message);
+	}
+
 }

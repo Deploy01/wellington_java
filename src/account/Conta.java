@@ -1,9 +1,7 @@
 package account;
-
-import exceptions.ExceptionLimite;
 import exceptions.ExceptionNegativoZero;
-import exceptions.ExceptionSaque;
-import menu.MenuConta;
+import exceptions.ExceptionSaldo;
+
 
 import javax.swing.*;
 
@@ -14,40 +12,68 @@ public abstract class Conta {
 		this.saldo = saldo;
 	}
 
-	public void depositar(double valor) throws ExceptionNegativoZero {
+	public void depositar(double valor){
 
-		if (valor <= 0) {
-			throw new ExceptionNegativoZero();
+		try {
+			if (valor <= 0) {
+				throw new ExceptionNegativoZero("O valor não pode ser menor ou igual a zero");
+			}
+
+			this.saldo += valor;
+		} catch (ExceptionNegativoZero e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			
+		} catch(NumberFormatException e) {
+			System.out.println("Letras ou caracteres especiais não são permitidos. Digite um número");
 		}
 		
-		this.saldo += valor;
+		
 	}
 	
-	public void sacar(double valor) throws ExceptionSaque, ExceptionNegativoZero, ExceptionLimite {
-		
-		if(valor > this.saldo) {
-			throw new ExceptionSaque();
-		} else if (valor <= 0) {
-			throw new ExceptionNegativoZero();
-		} else {
-			saldo -= valor;
+	public void sacar(double valor){ // não é aqui que faremos o tratamento para contaCC
+
+		try {
+			if (valor <= 0) {
+				throw new ExceptionNegativoZero("O valor não pode ser menor ou igual a zero");
+			} 
+
+			this.saldo -= valor;
+		} catch (ExceptionNegativoZero e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} catch(NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Valor inválido. Digite um número");
 		}
+
+		
+
 
 	}
 	//XXX // passei mais tempo aqui do que no código todo. 
-	public void atualizarSaldo(double valorSaque) throws ExceptionNegativoZero { // https://prnt.sc/LdMBu3J0I7FK // não achei outro jeito de fazer isso sem parametro
+	public void atualizarSaldo(double valorSaque){ // não achei outro jeito de fazer isso sem parametro
 		if (this.saldo < 0) {
 	        double valorExcedente = Math.min(Math.abs(this.saldo), valorSaque) * 0.08; // NINGUEM MEXE MAIS !!!!!!!!!!!!!!!!!!
-	        this.saldo -= valorExcedente; // por que isso funcionou????? // algum outro lugar está errado. deveria ser -40. // funcionou.
+	        this.saldo -= valorExcedente; // ????? // funcionou.
 	    }
+
+		
 	}
 	
 	public void setSaldo(double saldo) {
-		this.saldo = saldo;
-		
+		try {
+			this.saldo = saldo;
+			if (this.saldo < 0) {
+				throw new ExceptionSaldo("Você está negativado!");
+			}
+			
+		} catch (ExceptionSaldo e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			
+		}
 		
 	}
 	public double getSaldo() {
 		return saldo;
+		
 	}
 }
